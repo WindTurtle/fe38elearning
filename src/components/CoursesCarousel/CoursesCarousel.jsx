@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./CoursesCarousel.scss";
 import { NavLink } from "react-router-dom";
+import { coursesServices } from "../../services/CoursesServices";
 import ScrollAnimation from "react-animate-on-scroll";
-export default function CoursesCarousel(props) {
-  let { courseCategories, course } = props;
+export default function CoursesCarousel() {
+  let [courseCategories, setCourseCategories] = useState([]);
+  let [course, setCourse] = useState([]);
+  useEffect(() => {
+    coursesServices
+      .getCourseCategories()
+      .then((res) => {
+        setCourseCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
+
+  useEffect(() => {
+    coursesServices
+      .getCourse()
+      .then((res) => {
+        setCourse(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
   let settings = {
     dots: true,
     nav: true,

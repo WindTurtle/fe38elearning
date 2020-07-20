@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { coursesServices } from "../../services/CoursesServices";
 import "./TopCategories.scss";
-export default function TopCategories(props) {
-  let { courseCategories } = props;
+export default function TopCategories() {
+  let [courseCategories, setCourseCategories] = useState([]);
+  useEffect(() => {
+    coursesServices
+      .getCourseCategories()
+      .then((res) => {
+        setCourseCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
   const renderCategories = () => {
     return courseCategories?.map((item, index) => {
       return (
