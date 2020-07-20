@@ -7,6 +7,7 @@ import StudentViewingCarousel from "../components/StudentViewingCarousel/Student
 import Recommentdations from "../components/Recommentdations/Recommentdations";
 import TopCategories from "../components/TopCategories/TopCategories";
 import Companies from "../components/Companies/Companies";
+import CommentCarousel from "../components/CommentCarousel/CommentCarousel";
 
 export default function Home() {
   let [courseCategories, setCourseCategories] = useState([]);
@@ -41,6 +42,7 @@ export default function Home() {
       <StudentViewingCarousel />
       <Recommentdations />
       <TopCategories courseCategories={courseCategories} />
+      <CommentCarousel />
       <Companies />
     </Fragment>
   );
