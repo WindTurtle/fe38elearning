@@ -1,27 +1,56 @@
-import React, { useState } from "react";
-import "./AddUserModal.scss";
+import React, { useState, useEffect } from "react";
+import "./EditCourseModal.scss";
+import { coursesServices } from "../../services/CoursesServices";
+import { groupID } from "../../config/settings";
 import swal from "sweetalert";
-import { usersServices } from "../../services/UsersServices";
-export default function AddUserModal() {
+export default function EditCourseModal(props) {
+  let { currentCourse } = props;
+  const info = JSON.parse(localStorage.getItem("userLogin"));
   let [state, setState] = useState({
     values: {
-      taiKhoan: "",
-      matKhau: "",
-      hoTen: "",
-      soDT: "",
-      maNhom: "GP08",
-      maLoaiNguoiDung: "",
-      email: "",
+      maKhoaHoc: currentCourse.maKhoaHoc,
+      biDanh: currentCourse.biDanh,
+      tenKhoaHoc: currentCourse.tenKhoaHoc,
+      moTa: currentCourse.moTa,
+      luotXem: 0,
+      danhGia: 0,
+      hinhAnh: currentCourse.hinhAnh,
+      maNhom: groupID,
+      ngayTao: currentCourse.ngayTao,
+      maDanhMucKhoaHoc: currentCourse.danhMucKhoaHoc.maDanhMucKhoahoc,
+      taiKhoanNguoiTao: info.taiKhoan,
     },
     errors: {
-      taiKhoan: "",
-      matKhau: "",
-      hoTen: "",
-      soDT: "",
-      email: "",
-      maLoaiNguoiDung: "",
+      maKhoaHoc: "",
+      biDanh: "",
+      tenKhoaHoc: "",
+      moTa: "",
+      hinhAnh: "",
+      ngayTao: "",
+      maDanhMucKhoaHoc: "",
     },
   });
+  let [courseCategories, setCourseCategories] = useState([]);
+  useEffect(() => {
+    coursesServices
+      .getCourseCategories()
+      .then((res) => {
+        setCourseCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, []);
+
+  const renderCategories = () => {
+    return courseCategories.map((item, index) => {
+      return (
+        <option value={item.maDanhMuc} key={index}>
+          {item.tenDanhMuc}
+        </option>
+      );
+    });
+  };
   const handleInput = (e) => {
     var { value, name } = e.target;
     let newValues = { ...state.values, [name]: value };
@@ -29,6 +58,7 @@ export default function AddUserModal() {
       ...state.errors,
       [name]: value === "" ? "This field unempty !" : "",
     };
+
     setState({ values: newValues, errors: newErrors });
   };
   const handleSubmit = () => {
@@ -49,11 +79,11 @@ export default function AddUserModal() {
       return;
     }
 
-    usersServices
-      .addUser(values)
+    coursesServices
+      .updateCourse(values)
       .then(() => {
         swal({
-          title: "Add user successful",
+          title: "Update Course Successful",
           icon: "success",
           button: "OK",
         });
@@ -71,8 +101,8 @@ export default function AddUserModal() {
   };
   return (
     <div
-      className="modal fade bd-example-modal-lg"
-      id="addUserModal"
+      className="editCourseModal modal fade bd-example-modal-lg"
+      id={`dc${currentCourse.maKhoaHoc}`}
       tabIndex="-1"
       role="dialog"
       aria-labelledby="modelTitleId"
@@ -83,88 +113,110 @@ export default function AddUserModal() {
           <div className="modal-body">
             <form className="formUser form-add-user">
               <fieldset>
-                <legend>Add User</legend>
+                <legend>Edit Course</legend>
                 <div className="row">
                   <div className="col-6">
                     <ul className="control-form-list">
                       <li className="control-form-item">
-                        <label>Username:</label>
+                        <label>Course Id:</label>
                         <input
                           type="text"
-                          name="taiKhoan"
-                          id="username"
+                          name="maKhoaHoc"
+                          id="maKhoaHoc"
+                          value={state.values.maKhoaHoc}
                           onChange={handleInput}
+                          disabled
                           required
                         />
                         <span className="text-danger">
-                          {state.errors.taiKhoan}
+                          {state.errors.maKhoaHoc}
                         </span>
                       </li>
                       <li className="control-form-item">
-                        <label>Email:</label>
+                        <label>Course Name:</label>
                         <input
-                          type="email"
-                          name="email"
-                          id="email"
+                          type="text"
+                          name="tenKhoaHoc"
+                          id="tenKhoaHoc"
+                          value={state.values.tenKhoaHoc}
                           onChange={handleInput}
                           required
                         />
                         <span className="text-danger">
-                          {state.errors.email}
+                          {state.errors.tenKhoaHoc}
                         </span>
                       </li>
                       <li className="control-form-item">
-                        <label>Password:</label>
+                        <label>Alias:</label>
                         <input
-                          type="password"
-                          name="matKhau"
-                          id="password"
+                          type="text"
+                          name="biDanh"
+                          id="biDanh"
+                          value={state.values.biDanh}
                           onChange={handleInput}
                           required
                         />
                         <span className="text-danger">
-                          {state.errors.matKhau}
+                          {state.errors.biDanh}
                         </span>
+                      </li>
+                      <li className="control-form-item">
+                        <label>Description:</label>
+                        <textarea
+                          type="text"
+                          name="moTa"
+                          id="moTa"
+                          value={state.values.moTa}
+                          onChange={handleInput}
+                          required
+                        />
+                        <span className="text-danger">{state.errors.moTa}</span>
                       </li>
                     </ul>
                   </div>
                   <div className="col-6">
                     <ul className="control-form-list">
                       <li className="control-form-item">
-                        <label>Name:</label>
+                        <label>Image:</label>
                         <input
                           type="text"
-                          name="hoTen"
-                          id="name"
+                          name="hinhAnh"
+                          id="hinhAnh"
+                          value={state.values.hinhAnh}
                           onChange={handleInput}
                           required
                         />
                         <span className="text-danger">
-                          {state.errors.hoTen}
+                          {state.errors.hinhAnh}
                         </span>
                       </li>
                       <li className="control-form-item">
-                        <label>Phone:</label>
+                        <label>Created Date</label>
                         <input
-                          type="tel"
-                          name="soDT"
-                          id="phone"
+                          type="text"
+                          name="ngayTao"
+                          id="ngayTao"
+                          value={state.values.ngayTao}
                           onChange={handleInput}
                           required
                         />
-                        <span className="text-danger">{state.errors.soDT}</span>
+                        <span className="text-danger">
+                          {state.errors.ngayTao}
+                        </span>
                       </li>
                       <li className="control-form-item">
                         <label>Type User:</label>
                         <select
-                          name="maLoaiNguoiDung"
+                          name="maDanhMucKhoaHoc"
+                          value={state.values.maDanhMucKhoaHoc}
                           onChange={handleInput}
-                          id="maLoaiNguoiDung"
+                          id="maDanhMucKhoaHoc"
                           required
                         >
-                          <option value="#">--Choose type of user--</option>
-                          <option value="HV">Student</option>
-                          <option value="GV">Mentor</option>
+                          <option value="#">
+                            --Choose course categories--
+                          </option>
+                          {renderCategories()}
                         </select>
                       </li>
                     </ul>
@@ -179,7 +231,7 @@ export default function AddUserModal() {
                 handleSubmit();
               }}
             >
-              Create
+              Edit
             </button>
           </div>
         </div>

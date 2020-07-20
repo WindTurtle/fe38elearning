@@ -1,13 +1,13 @@
 @import "../connect";
 
-#addUserModal {
+#createCourseModal {
   z-index: 8888;
   .modal-dialog {
+    max-width: 50%;
     .modal-content {
       margin: 0;
       .modal-body {
         display: flex;
-        // margin: spacing(3) 0;
         justify-content: center;
         box-sizing: border-box;
         padding: 0;
@@ -53,6 +53,14 @@
                   padding-bottom: 2px;
                 }
                 input {
+                  padding: 5px;
+                  border: 1px solid #ddd;
+                  border-radius: 5px;
+                  &:hover {
+                    border: 1px solid $color-red-0;
+                  }
+                }
+                textarea {
                   padding: 5px;
                   border: 1px solid #ddd;
                   border-radius: 5px;

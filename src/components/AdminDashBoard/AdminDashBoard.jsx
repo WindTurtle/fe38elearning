@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
-import { Chart } from "react-charts";
+import React, { useMemo } from "react";
 import "./AdminDashBoard.scss";
 import RankMentor from "../RankMentor/RankMentor";
 import SkillDashboard from "../SkillDashboard/SkillDashboard";
+import { Chart } from "react-charts";
 export default function AdminDashBoard() {
-  const data = React.useMemo(
+  const data = useMemo(
     () => [
       {
         label: "Series 1",
@@ -30,7 +30,7 @@ export default function AdminDashBoard() {
     []
   );
 
-  const axes = React.useMemo(
+  const axes = useMemo(
     () => [
       { primary: true, type: "linear", position: "bottom" },
       { type: "linear", position: "left" },
@@ -38,26 +38,24 @@ export default function AdminDashBoard() {
     []
   );
   return (
-    <Fragment>
-      <div className="row">
-        <div className="col-12">
-          <RankMentor />
-        </div>
-        <div className="col-6 item-col">
-          <SkillDashboard />
-        </div>
-        <div className="col-6 item-col">
-          <h2>The Growth of Website</h2>
-          <div
-            style={{
-              width: "100%",
-              height: "300px",
-            }}
-          >
-            <Chart data={data} axes={axes} />
-          </div>
-        </div>
-      </div>
-    </Fragment>
+    <div className="row">
+      <article className="col-12">
+        <RankMentor />
+      </article>
+      <article className="col-md-6 col-sm-12 item-col border-tbl">
+        <SkillDashboard />
+      </article>
+      <article className="col-md-6 col-sm-12 item-col border-tbr">
+        <h2>The Growth of Website</h2>
+        <article
+          style={{
+            width: "100%",
+            height: "300px",
+          }}
+        >
+          <Chart data={data} axes={axes} />
+        </article>
+      </article>
+    </div>
   );
 }

@@ -13,7 +13,6 @@ export default function SkillDashboard() {
         console.log(err.response.data);
       });
   }, []);
-  console.log(courseCategories);
   const renderCourseCategories = () => {
     return courseCategories?.map((item, index) => {
       return (
@@ -39,7 +38,7 @@ export default function SkillDashboard() {
           <ul className="chart--horiz">
             <li className="chart__bar" style={{ width: "75%" }}>
               <span className="chart__label">
-                Git + Github, Bitbucket &amp; Sourcetree
+                Git + Github, Bitbucket {"&"} Sourcetree
               </span>
             </li>
             <li className="chart__bar" style={{ width: "80%" }}>

@@ -9,7 +9,7 @@ class Footer extends Component {
           <div className="row">
             <div className="footerTop__link col-md-9 col-sm-12">
               <ul>
-                <li>
+                {/* <li>
                   <a className="link--item" href="/#">
                     Udemy for Business
                   </a>
@@ -18,9 +18,9 @@ class Footer extends Component {
                   <a className="link--item" href="/#">
                     Teach on Udemy
                   </a>
-                </li>
+                </li> */}
                 <li>
-                  <a href="/#">Udemy app</a>
+                  {/* <a href="/#">Udemy app</a> */}
                 </li>
                 <li>
                   <a href="/#">About us</a>

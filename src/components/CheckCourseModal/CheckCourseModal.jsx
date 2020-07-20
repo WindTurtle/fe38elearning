@@ -138,7 +138,7 @@ export default function CheckCourseModal(props) {
     if (course) {
       return course.map((item, index) => {
         return (
-          <tr>
+          <tr key={index}>
             <th scope="row">{index + 1}</th>
             <td>{item.tenKhoaHoc}</td>
             <td>
@@ -152,7 +152,7 @@ export default function CheckCourseModal(props) {
                     ghiDanh(item.maKhoaHoc, currentUser);
                   }}
                 >
-                  <i class="fa fa-check"></i>
+                  <i className="fa fa-check"></i>
                 </div>
                 <div
                   style={{
@@ -163,7 +163,7 @@ export default function CheckCourseModal(props) {
                     huyGhiDanh(item.maKhoaHoc, currentUser);
                   }}
                 >
-                  <i class="fa fa-times"></i>
+                  <i className="fa fa-times"></i>
                 </div>
               </div>
             </td>
@@ -176,7 +176,7 @@ export default function CheckCourseModal(props) {
     if (courseAccepted) {
       return courseAccepted.map((item, index) => {
         return (
-          <tr>
+          <tr key={index}>
             <th scope="row">{index + 1}</th>
             <td>{item.maKhoaHoc}</td>
             <td>{item.tenKhoaHoc}</td>
@@ -190,7 +190,7 @@ export default function CheckCourseModal(props) {
                   huyGhiDanh(item.maKhoaHoc, currentUser);
                 }}
               >
-                <i class="fa fa-times"></i>
+                <i className="fa fa-times"></i>
               </div>
             </td>
           </tr>
@@ -213,9 +213,7 @@ export default function CheckCourseModal(props) {
       >
         <div className="modal-content">
           <div className="modal-body p-0">
-            <div
-              className={classes.root}
-            >
+            <div className={classes.root}>
               <AppBar position="static" color="default">
                 <Tabs
                   value={value}
@@ -234,8 +232,8 @@ export default function CheckCourseModal(props) {
                 index={value}
                 onChangeIndex={handleChangeIndex}
               >
-                <TabPanel value={value} index={0} dir={theme.direction}>
-                  <table class="table">
+                <div value={value} index={0} dir={theme.direction}>
+                  <table className="table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -245,9 +243,9 @@ export default function CheckCourseModal(props) {
                     </thead>
                     <tbody>{renderCourseUnAccept()}</tbody>
                   </table>
-                </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
-                  <table class="table">
+                </div>
+                <div value={value} index={1} dir={theme.direction}>
+                  <table className="table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -258,7 +256,7 @@ export default function CheckCourseModal(props) {
                     </thead>
                     <tbody>{renderCourseAccepted()}</tbody>
                   </table>
-                </TabPanel>
+                </div>
               </SwipeableViews>
             </div>
           </div>

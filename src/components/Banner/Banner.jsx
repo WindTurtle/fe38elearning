@@ -16,7 +16,7 @@ export default class Banner extends Component {
                 </div>
               </div>
               <div className="grid__item col-4 grid__item--2">
-                <i class="fa fa-check-double"></i>
+                <i className="fa fa-check-double"></i>
                 <div className="grid__text">
                   <b>Expert instruction</b>
                   <p>Find the right instructor for you</p>

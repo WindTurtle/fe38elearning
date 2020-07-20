@@ -51,7 +51,7 @@
 
 @media screen and (max-width: 695px) {
   .infographic__grid {
-    flex-direction: column;
+    // flex-direction: column;
   }
   .infographic__grid__item {
     width: calc(100% - 16px);

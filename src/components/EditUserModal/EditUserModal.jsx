@@ -72,16 +72,16 @@ export default function AddUserModal(props) {
   };
   return (
     <div
-      class="editUserModal modal fade bd-example-modal-lg"
+      className="editUserModal modal fade bd-example-modal-lg"
       id={`d${currentUser.taiKhoan}`}
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="modelTitleId"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
+      <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
+          <div className="modal-body">
             <form className="formUser form-add-user">
               <fieldset>
                 <legend>Edit User</legend>
@@ -89,7 +89,7 @@ export default function AddUserModal(props) {
                   <div className="col-6">
                     <ul className="control-form-list">
                       <li className="control-form-item">
-                        <label for="username">Username:</label>
+                        <label>Username:</label>
                         <input
                           type="text"
                           name="taiKhoan"
@@ -103,7 +103,7 @@ export default function AddUserModal(props) {
                         </span>
                       </li>
                       <li className="control-form-item">
-                        <label for="email">Email:</label>
+                        <label>Email:</label>
                         <input
                           type="email"
                           name="email"
@@ -117,7 +117,7 @@ export default function AddUserModal(props) {
                         </span>
                       </li>
                       <li className="control-form-item">
-                        <label for="password">Password:</label>
+                        <label>Password:</label>
                         <input
                           type="password"
                           name="matKhau"
@@ -135,7 +135,7 @@ export default function AddUserModal(props) {
                   <div className="col-6">
                     <ul className="control-form-list">
                       <li className="control-form-item">
-                        <label for="name">Name:</label>
+                        <label>Name:</label>
                         <input
                           type="text"
                           name="hoTen"
@@ -149,7 +149,7 @@ export default function AddUserModal(props) {
                         </span>
                       </li>
                       <li className="control-form-item">
-                        <label for="phone">Phone:</label>
+                        <label>Phone:</label>
                         <input
                           type="tel"
                           name="soDT"
@@ -161,7 +161,7 @@ export default function AddUserModal(props) {
                         <span className="text-danger">{state.errors.soDT}</span>
                       </li>
                       <li className="control-form-item">
-                        <label for="phone">Type User:</label>
+                        <label>Type User:</label>
                         <select
                           name="maLoaiNguoiDung"
                           onChange={handleInput}
@@ -180,7 +180,7 @@ export default function AddUserModal(props) {
               </fieldset>
             </form>
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
               onClick={() => {
                 handleSubmit();

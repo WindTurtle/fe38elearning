@@ -1,13 +1,13 @@
 @import "../connect";
 
-#addUserModal {
+.uploadImageModal {
   z-index: 8888;
   .modal-dialog {
+    max-width: 50%;
     .modal-content {
       margin: 0;
       .modal-body {
         display: flex;
-        // margin: spacing(3) 0;
         justify-content: center;
         box-sizing: border-box;
         padding: 0;
@@ -60,6 +60,14 @@
                     border: 1px solid $color-red-0;
                   }
                 }
+                textarea {
+                  padding: 5px;
+                  border: 1px solid #ddd;
+                  border-radius: 5px;
+                  &:hover {
+                    border: 1px solid $color-red-0;
+                  }
+                }
                 select {
                   padding: 5px;
                   border: 1px solid #ddd;
@@ -78,13 +86,13 @@
           padding: 10px;
           border: 1px solid rgba(0, 0, 0, 0);
           border-radius: 5px;
-          background: $color-red-0;
+          background: $color-yellow;
           color: $color-white-0;
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
           &:hover {
             background: none;
             color: $color-black-0;
-            border: 1px solid $color-red-0;
+            border: 1px solid $color-yellow;
           }
         }
       }

@@ -49,6 +49,44 @@ export class CoursesServices {
       },
     });
   };
+  deleteCourse = (courseId) => {
+    return axios({
+      url: `${domain}/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${courseId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem(token),
+      },
+    });
+  };
+  createCourse = (infoCourse) => {
+    return axios({
+      url: `${domain}/QuanLyKhoaHoc/ThemKhoaHoc`,
+      method: "POST",
+      data: infoCourse,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem(token),
+      },
+    });
+  };
+
+  updateCourse = (infoUpdateCourse) => {
+    return axios({
+      url: `${domain}/QuanLyKhoaHoc/CapNhatKhoaHoc`,
+      method: "PUT",
+      data: infoUpdateCourse,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem(token),
+      },
+    });
+  };
+  
+  upLoadImageCourse = (image) => {
+    return axios({
+      url: `${domain}/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
+      method: "POST",
+      data: image,
+    });
+  };
 }
 
 export const coursesServices = new CoursesServices();

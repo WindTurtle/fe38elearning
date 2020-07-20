@@ -165,7 +165,7 @@ const AdminLayout = (props) => {
       </nav>
       <main className={classes.content}>
         <div style={{ marginBottom: 50 }}></div>
-        <Typography paragraph>{props.children}</Typography>
+        <div>{props.children}</div>
       </main>
     </div>
   );

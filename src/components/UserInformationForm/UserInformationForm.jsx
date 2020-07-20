@@ -3,6 +3,7 @@ import ScrollAnimation from "react-animate-on-scroll";
 import "./UserInformationForm.scss";
 import { usersServices } from "../../services/UsersServices";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 export default function UserInformationForm() {
   let [infoUser, setInfoUser] = useState();
   let [info] = useState({
@@ -28,7 +29,12 @@ export default function UserInformationForm() {
           <form className="formUser form-profile">
             <ScrollAnimation animateIn="zoomIn" duration="1">
               <fieldset>
-                <legend>User Information</legend>
+                <legend>
+                  User Information{" "}
+                  <NavLink to="/edit-profile">
+                    <i className="fa fa-user-edit"></i>
+                  </NavLink>
+                </legend>
                 <div className="row">
                   <div className="col-6">
                     <ul className="control-form-list">

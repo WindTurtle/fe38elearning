@@ -92,6 +92,7 @@ export class UsersServices {
       },
     });
   };
+  
 }
 
 export const usersServices = new UsersServices();
