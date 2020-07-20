@@ -76,48 +76,48 @@ export default function MyCoursesRegistered() {
       return coursesSearch.map((item, index) => {
         return (
           <div className="col-md-4 col-sm-12 mb-5" key={index}>
-            <NavLink
-              style={{ textDecoration: "none" }}
-              to={`/detail-course/${item.maKhoaHoc}`}
-            >
-              <ScrollAnimation animateIn="fadeIn" duration="1">
-                <div className="food-card-registered-course">
+            <ScrollAnimation animateIn="fadeIn" duration="1">
+              <div className="food-card-registered-course">
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  to={`/detail-course/${item.maKhoaHoc}`}
+                >
                   <div className="food-card-registered-course__image">
                     <img
                       src="https://leverageedu.com/blog/wp-content/uploads/2019/08/Course-after-MBA.png"
                       alt="pic"
                     />
                   </div>
-                  <div className="food-card-registered-course__details">
-                    <span className="food-card-registered-course__name">
-                      {item.maKhoaHoc}
-                    </span>
-                    <div className="food-card-registered-course__control">
-                      <button
-                        className="remove-btn"
-                        onClick={() => {
-                          huyGhiDanh(item.maKhoaHoc, info.taiKhoan);
-                        }}
-                      >
-                        Remove Course
-                      </button>
-                    </div>
-                    <span className="food-card-registered-course__desc">
-                      {item.tenKhoaHoc}
-                    </span>
-                    <div className="food-card-registered-course__price">
-                      $11.90
-                    </div>
-                    <div className="food-card-registered-course__rating">
-                      <div className="food-card-registered-course__star food-card-registered-course__star--gold" />
-                      <div className="food-card-registered-course__star food-card-registered-course__star--gold" />
-                      <div className="food-card-registered-course__star food-card-registered-course__star--gold" />
-                      <div className="food-card-registered-course__star" />
-                    </div>
+                </NavLink>
+                <div className="food-card-registered-course__details">
+                  <span className="food-card-registered-course__name">
+                    {item.maKhoaHoc}
+                  </span>
+                  <div className="food-card-registered-course__control">
+                    <button
+                      className="remove-btn"
+                      onClick={() => {
+                        huyGhiDanh(item.maKhoaHoc, info.taiKhoan);
+                      }}
+                    >
+                      Remove Course
+                    </button>
+                  </div>
+                  <span className="food-card-registered-course__desc">
+                    {item.tenKhoaHoc}
+                  </span>
+                  <div className="food-card-registered-course__price">
+                    $11.90
+                  </div>
+                  <div className="food-card-registered-course__rating">
+                    <div className="food-card-registered-course__star food-card-registered-course__star--gold" />
+                    <div className="food-card-registered-course__star food-card-registered-course__star--gold" />
+                    <div className="food-card-registered-course__star food-card-registered-course__star--gold" />
+                    <div className="food-card-registered-course__star" />
                   </div>
                 </div>
-              </ScrollAnimation>
-            </NavLink>
+              </div>
+            </ScrollAnimation>
           </div>
         );
       });
