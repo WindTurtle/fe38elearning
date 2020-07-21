@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Carousel.scss";
+import PickingCourse from "../PickingCourse/PickingCourse";
 export default class Carousel extends Component {
   render() {
     return (
@@ -7,10 +8,7 @@ export default class Carousel extends Component {
         <div className="udemyCarousel__content">
           <div className="udemyCarousel__text">
             <h1>Learn on your schedule</h1>
-            <p>
-              Learn from experts around the globe. Courses start at $10.99
-              through Jul. 21.
-            </p>
+            <p>Learn from experts around the globe. Courses start at $12.99</p>
             <form className="formSearch">
               <div className="input-group">
                 <input
@@ -28,6 +26,9 @@ export default class Carousel extends Component {
               </div>
             </form>
           </div>
+        </div>
+        <div className="picking-course">
+          <PickingCourse />
         </div>
       </section>
     );

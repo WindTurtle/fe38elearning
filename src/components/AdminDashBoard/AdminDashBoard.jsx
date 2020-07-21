@@ -3,7 +3,13 @@ import "./AdminDashBoard.scss";
 import RankMentor from "../RankMentor/RankMentor";
 import SkillDashboard from "../SkillDashboard/SkillDashboard";
 import { Chart } from "react-charts";
-export default function AdminDashBoard() {
+import { userLogin } from "../../config/settings";
+export default function AdminDashBoard(props) {
+  let { navigator } = props;
+  const info = JSON.parse(localStorage.getItem(userLogin));
+  if (!localStorage.getItem(userLogin) || info.maLoaiNguoiDung !== "GV") {
+    navigator.history.push("/");
+  }
   const data = useMemo(
     () => [
       {

@@ -14,6 +14,7 @@ import swal from "sweetalert";
 import AddUserModal from "../AddUserModal/AddUserModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import CheckCourseModal from "../CheckCourseModal/CheckCourseModal";
+import { userLogin } from "../../config/settings";
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -32,7 +33,12 @@ const StyledTableCell = withStyles((theme) => ({
     fontSize: 14,
   },
 }))(TableCell);
-export default function AdminUserManagement() {
+export default function AdminUserManagement(props) {
+  let { navigator } = props;
+  const info = JSON.parse(localStorage.getItem(userLogin));
+  if (!localStorage.getItem(userLogin) || info.maLoaiNguoiDung !== "GV") {
+    navigator.history.push("/");
+  }
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

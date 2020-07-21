@@ -8,8 +8,12 @@ import { useDispatch } from "react-redux";
 import { signInAction } from "../../redux/actions/UserManagementAction";
 import ScrollAnimation from "react-animate-on-scroll";
 export default function Login(props) {
-  const dispatch = useDispatch();
   let { navigator } = props;
+  if (localStorage.getItem("userLogin")) {
+    navigator.history.push("/");
+  }
+  const dispatch = useDispatch();
+
   let [status, setStatus] = useState({ currentView: "signUp" });
   let [state, setState] = useState({
     values: {

@@ -81,8 +81,7 @@
         margin: auto spacing(10);
         .part2__content {
           .part2__icon {
-            .svg-inline--fa.fa-atom,
-            .svg-inline--fa.fa-palette {
+            .fab {
               display: none;
             }
           }
