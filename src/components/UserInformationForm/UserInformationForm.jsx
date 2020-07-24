@@ -21,7 +21,6 @@ export default function UserInformationForm() {
       });
   }, [info]);
 
-  console.log(infoUser);
   const renderUI = () => {
     if (infoUser !== undefined) {
       return (

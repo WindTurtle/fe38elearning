@@ -9,6 +9,7 @@ import swal from "sweetalert";
 export default function InfoCourse(props) {
   let { params } = props;
   let [infoCourse, setCourse] = useState([]);
+
   useEffect(() => {
     coursesServices
       .getInfoCourse(params.match.params.makhoahoc)
@@ -43,7 +44,11 @@ export default function InfoCourse(props) {
             }, 1000);
           })
           .catch((err) => {
-            console.log(err.response.data);
+            swal({
+              title: "You have already registered for this course!",
+              icon: "error",
+              button: "OK",
+            });
           });
       } else {
         swal("Ohh!");
