@@ -1,7 +1,7 @@
 @import "../connect";
 
 section#entry-page {
-  display: flex;
+  // display: flex;
   margin: spacing(3) 0;
   justify-content: center;
   box-sizing: border-box;
@@ -68,6 +68,20 @@ section#entry-page {
         background: none;
         color: $color-black-0;
         border: 1px solid $color-red-0;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: getBreakpoint("small")) {
+  section#entry-page {
+    .formUser {
+      &.form-signup {
+        width: 100%;
+      }
+      &.form-login{
+        width: 100%;
       }
     }
   }

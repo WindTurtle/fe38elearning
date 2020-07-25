@@ -16,7 +16,7 @@ import SchoolIcon from "@material-ui/icons/School";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import AspectRatioIcon from "@material-ui/icons/AspectRatio";
-// import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { NavLink, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -93,6 +93,15 @@ const AdminLayout = (props) => {
           <ListItem button key="Courses Management">
             <SchoolIcon style={{ marginRight: 32 }} />
             <ListItemText primary="Courses Management" />
+          </ListItem>
+        </NavLink>
+        <NavLink
+          to="/student-in-course"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <ListItem button key="Student In Course">
+            <ListAltIcon style={{ marginRight: 32 }} />
+            <ListItemText primary="Student In Course" />
           </ListItem>
         </NavLink>
         <Divider />

@@ -49,6 +49,16 @@ export class CoursesServices {
       },
     });
   };
+  getUserInCourse = (courseId) => {
+    return axios({
+      url: `${domain}/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
+      method: "POST",
+      data: courseId,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem(token),
+      },
+    });
+  };
   deleteCourse = (courseId) => {
     return axios({
       url: `${domain}/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${courseId}`,
@@ -79,7 +89,7 @@ export class CoursesServices {
       },
     });
   };
-  
+
   upLoadImageCourse = (image) => {
     return axios({
       url: `${domain}/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,

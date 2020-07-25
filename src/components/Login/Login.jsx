@@ -240,7 +240,7 @@ export default function Login(props) {
         );
       case "logIn":
         return (
-          <form className="formUser" onSubmit={handleLogIn}>
+          <form className="formUser form-login" onSubmit={handleLogIn}>
             <h2 className="form-title">
               <ScrollAnimation animateIn="bounce" duration="1">
                 Welcome Back!

@@ -14,6 +14,7 @@ import AdminUser from "../pages/AdminUser";
 import AdminCourse from "../pages/AdminCourse";
 import { Cube } from "styled-loaders-react";
 import "./App.css";
+import StudentInCourse from "../pages/StudentInCourse";
 class App extends Component {
   state = {
     loading: true,
@@ -58,6 +59,11 @@ class App extends Component {
                   exact
                   path="/course-management"
                   Component={AdminCourse}
+                />
+                <AdminTemplate
+                  exact
+                  path="/student-in-course"
+                  Component={StudentInCourse}
                 />
               </Switch>
             </Fragment>

@@ -112,7 +112,6 @@ export default function ProfileUser(props) {
       }
     });
   };
-  console.log(stateChange.values);
   return (
     <section className="entry-page">
       <form className="formUser form-change" onSubmit={handleSubmit}>

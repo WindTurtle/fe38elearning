@@ -73,3 +73,13 @@ section.entry-page {
     }
   }
 }
+
+@media only screen and (max-width: getBreakpoint("small")) {
+  section.entry-page {
+    .formUser {
+      &.form-change {
+        width: 100%;
+      }
+    }
+  }
+}
