@@ -59,6 +59,16 @@ export class CoursesServices {
       },
     });
   };
+  getUserInCourseUnaccepted = (courseId) => {
+    return axios({
+      url: `${domain}/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+      method: "POST",
+      data: courseId,
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem(token),
+      },
+    });
+  };
   deleteCourse = (courseId) => {
     return axios({
       url: `${domain}/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${courseId}`,

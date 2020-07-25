@@ -2,7 +2,67 @@ import React, { useState, useEffect, Fragment } from "react";
 import "./FormFilterCourse.scss";
 import { coursesServices } from "../../services/CoursesServices";
 import TableFormFilterCourse from "../TableFormFilterCourse/TableFormFilterCourse";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import TableFormStudentUnaccepted from "../TableFormStudentUnaccepted/TableFormStudentUnaccepted";
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    width: "100%",
+  },
+}));
 export default function FormFilterCourse() {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
+
   let [courseCategories, setCourseCategories] = useState([]);
   let [course, setCourse] = useState([]);
   let [getCategoryId, setCategoryId] = useState();
@@ -10,6 +70,7 @@ export default function FormFilterCourse() {
     maKhoaHoc: "",
   });
   let [userInCourse, setUserInCourse] = useState([]);
+  let [userInCourseUnaccepted, setUserInCourseUnaccepted] = useState([]);
   const handleInput = (event) => {
     let categoryId = event.target.value;
     setCategoryId(categoryId);
@@ -71,10 +132,22 @@ export default function FormFilterCourse() {
         console.log(err.response.data);
       });
   }, [getCourseId]);
+  useEffect(() => {
+    coursesServices
+      .getUserInCourseUnaccepted(getCourseId)
+      .then((res) => {
+        setUserInCourseUnaccepted(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, [getCourseId]);
 
+  console.log(userInCourseUnaccepted);
   const [searchTerm, setSearchTerm] = useState("");
   const [listUser, setListUser] = useState([]);
-  const handleChange = (event) => {
+  const [listUserUnaccepted, setListUserUnaccepted] = useState([]);
+  const handleChangeSearch = (event) => {
     setSearchTerm(event.target.value);
   };
   useEffect(() => {
@@ -83,6 +156,53 @@ export default function FormFilterCourse() {
     });
     setListUser(results);
   }, [searchTerm, userInCourse]);
+
+  useEffect(() => {
+    const results = userInCourseUnaccepted.filter((user) => {
+      return user.taiKhoan.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setListUserUnaccepted(results);
+  }, [searchTerm, userInCourseUnaccepted]);
+
+  const renderTable = () => {
+    if (getCourseId.maKhoaHoc) {
+      return (
+        <div className={classes.root}>
+          <AppBar position="static" color="default">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab label="List Student Accepted" {...a11yProps(0)} />
+              <Tab label="List Student Unaccepted" {...a11yProps(1)} />
+            </Tabs>
+          </AppBar>
+          <SwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={value}
+            onChangeIndex={handleChangeIndex}
+          >
+            <div value={value} index={0} dir={theme.direction}>
+              <TableFormFilterCourse
+                listUser={listUser}
+                courseId={getCourseId.maKhoaHoc}
+              />
+            </div>
+            <div value={value} index={1} dir={theme.direction}>
+              <TableFormStudentUnaccepted
+                listUser={listUserUnaccepted}
+                courseId={getCourseId.maKhoaHoc}
+              />
+            </div>
+          </SwipeableViews>
+        </div>
+      );
+    }
+  };
   return (
     <Fragment>
       <div className="picking-course-content">
@@ -91,7 +211,7 @@ export default function FormFilterCourse() {
             type="text"
             id="search-bar"
             value={searchTerm}
-            onChange={handleChange}
+            onChange={handleChangeSearch}
             placeholder="Search User..."
           />
         </form>
@@ -126,10 +246,7 @@ export default function FormFilterCourse() {
           </div>
         </form>
       </div>
-      <TableFormFilterCourse
-        listUser={listUser}
-        courseId={getCourseId.maKhoaHoc}
-      />
+      {renderTable()}
     </Fragment>
   );
 }
