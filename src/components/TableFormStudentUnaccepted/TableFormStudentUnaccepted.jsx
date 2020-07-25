@@ -28,7 +28,8 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 export default function TableFormStudentUnaccepted(props) {
-  let { listUser, courseId } = props;
+  let { listUserUnaccepted, courseId } = props;
+  console.log(listUserUnaccepted);
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -72,7 +73,7 @@ export default function TableFormStudentUnaccepted(props) {
       maKhoaHoc: maKhoaHoc,
       taiKhoan: taiKhoan,
     };
-
+    console.log(info);
     usersServices
       .cancelRegisterCourse(info)
       .then((res) => {
@@ -94,7 +95,7 @@ export default function TableFormStudentUnaccepted(props) {
       });
   };
   const renderUsers = () => {
-    return listUser
+    return listUserUnaccepted
       ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
       .map((item, index) => {
         return (
@@ -124,7 +125,6 @@ export default function TableFormStudentUnaccepted(props) {
                     color: "#e81b00",
                   }}
                   onClick={() => {
-                    console.log(item.taiKhoan);
                     huyGhiDanh(courseId, item.taiKhoan);
                   }}
                 >
@@ -157,7 +157,7 @@ export default function TableFormStudentUnaccepted(props) {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={listUser.length}
+        count={listUserUnaccepted.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}

@@ -142,8 +142,6 @@ export default function FormFilterCourse() {
         console.log(err.response.data);
       });
   }, [getCourseId]);
-
-  console.log(userInCourseUnaccepted);
   const [searchTerm, setSearchTerm] = useState("");
   const [listUser, setListUser] = useState([]);
   const [listUserUnaccepted, setListUserUnaccepted] = useState([]);
@@ -194,7 +192,7 @@ export default function FormFilterCourse() {
             </div>
             <div value={value} index={1} dir={theme.direction}>
               <TableFormStudentUnaccepted
-                listUser={listUserUnaccepted}
+                listUserUnaccepted={listUserUnaccepted}
                 courseId={getCourseId.maKhoaHoc}
               />
             </div>

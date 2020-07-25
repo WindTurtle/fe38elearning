@@ -61,7 +61,7 @@ export class CoursesServices {
   };
   getUserInCourseUnaccepted = (courseId) => {
     return axios({
-      url: `${domain}/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+      url: `${domain}/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
       method: "POST",
       data: courseId,
       headers: {
