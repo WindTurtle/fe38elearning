@@ -69,8 +69,7 @@ export default function FormFilterCourse() {
   let [getCourseId, setCourseId] = useState({
     maKhoaHoc: "",
   });
-  let [userInCourse, setUserInCourse] = useState([]);
-  let [userInCourseUnaccepted, setUserInCourseUnaccepted] = useState([]);
+
   const handleInput = (event) => {
     let categoryId = event.target.value;
     setCategoryId(categoryId);
@@ -122,45 +121,6 @@ export default function FormFilterCourse() {
       }
     });
   };
-  useEffect(() => {
-    coursesServices
-      .getUserInCourse(getCourseId)
-      .then((res) => {
-        setUserInCourse(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  }, [getCourseId]);
-  useEffect(() => {
-    coursesServices
-      .getUserInCourseUnaccepted(getCourseId)
-      .then((res) => {
-        setUserInCourseUnaccepted(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  }, [getCourseId]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [listUser, setListUser] = useState([]);
-  const [listUserUnaccepted, setListUserUnaccepted] = useState([]);
-  const handleChangeSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
-  useEffect(() => {
-    const results = userInCourse.filter((user) => {
-      return user.taiKhoan.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    setListUser(results);
-  }, [searchTerm, userInCourse]);
-
-  useEffect(() => {
-    const results = userInCourseUnaccepted.filter((user) => {
-      return user.taiKhoan.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    setListUserUnaccepted(results);
-  }, [searchTerm, userInCourseUnaccepted]);
 
   const renderTable = () => {
     if (getCourseId.maKhoaHoc) {
@@ -185,16 +145,10 @@ export default function FormFilterCourse() {
             onChangeIndex={handleChangeIndex}
           >
             <div value={value} index={0} dir={theme.direction}>
-              <TableFormFilterCourse
-                listUser={listUser}
-                courseId={getCourseId.maKhoaHoc}
-              />
+              <TableFormFilterCourse courseId={getCourseId} />
             </div>
             <div value={value} index={1} dir={theme.direction}>
-              <TableFormStudentUnaccepted
-                listUserUnaccepted={listUserUnaccepted}
-                courseId={getCourseId.maKhoaHoc}
-              />
+              <TableFormStudentUnaccepted courseId={getCourseId} />
             </div>
           </SwipeableViews>
         </div>
@@ -204,15 +158,6 @@ export default function FormFilterCourse() {
   return (
     <Fragment>
       <div className="picking-course-content">
-        <form className="search-container mb-2">
-          <input
-            type="text"
-            id="search-bar"
-            value={searchTerm}
-            onChange={handleChangeSearch}
-            placeholder="Search User..."
-          />
-        </form>
         <form className="picking-form">
           <div className="row">
             <div className="col-6">

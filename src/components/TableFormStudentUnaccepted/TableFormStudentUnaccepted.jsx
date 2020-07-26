@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -9,6 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { usersServices } from "../../services/UsersServices";
+import { coursesServices } from "../../services/CoursesServices";
 import swal from "sweetalert";
 const useStyles = makeStyles({
   root: {
@@ -28,8 +29,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 export default function TableFormStudentUnaccepted(props) {
-  let { listUserUnaccepted, courseId } = props;
-  console.log(listUserUnaccepted);
+  let { courseId } = props;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -41,6 +41,30 @@ export default function TableFormStudentUnaccepted(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  let [userInCourseUnaccepted, setUserInCourseUnaccepted] = useState([]);
+  useEffect(() => {
+    coursesServices
+      .getUserInCourseUnaccepted(courseId)
+      .then((res) => {
+        setUserInCourseUnaccepted(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, [courseId]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  let [listUserUnaccepted, setListUserUnaccepted] = useState([]);
+  const handleChangeSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    const results = userInCourseUnaccepted.filter((user) => {
+      return user.taiKhoan.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setListUserUnaccepted(results);
+  }, [searchTerm, userInCourseUnaccepted]);
 
   const ghiDanh = (maKhoaHoc, taiKhoan) => {
     let info = {
@@ -56,9 +80,6 @@ export default function TableFormStudentUnaccepted(props) {
           icon: "success",
           button: "OK",
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
       })
       .catch((err) => {
         swal({
@@ -73,7 +94,6 @@ export default function TableFormStudentUnaccepted(props) {
       maKhoaHoc: maKhoaHoc,
       taiKhoan: taiKhoan,
     };
-    console.log(info);
     usersServices
       .cancelRegisterCourse(info)
       .then((res) => {
@@ -92,6 +112,9 @@ export default function TableFormStudentUnaccepted(props) {
           icon: "error",
           button: "OK",
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       });
   };
   const renderUsers = () => {
@@ -113,7 +136,7 @@ export default function TableFormStudentUnaccepted(props) {
                   }}
                   onClick={() => {
                     console.log(item.taiKhoan);
-                    ghiDanh(courseId, item.taiKhoan);
+                    ghiDanh(courseId.maKhoaHoc, item.taiKhoan);
                   }}
                 >
                   <i className="fa fa-check"></i>
@@ -125,7 +148,7 @@ export default function TableFormStudentUnaccepted(props) {
                     color: "#e81b00",
                   }}
                   onClick={() => {
-                    huyGhiDanh(courseId, item.taiKhoan);
+                    huyGhiDanh(courseId.maKhoaHoc, item.taiKhoan);
                   }}
                 >
                   <i className="fa fa-times"></i>
@@ -138,7 +161,17 @@ export default function TableFormStudentUnaccepted(props) {
   };
   return (
     <Paper className={classes.root}>
-      <div className="header-table"></div>
+      <div className="header-table">
+        <form className="search-container my-2">
+          <input
+            type="text"
+            id="search-bar"
+            value={searchTerm}
+            onChange={handleChangeSearch}
+            placeholder="Search User..."
+          />
+        </form>
+      </div>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
