@@ -70,6 +70,7 @@ export default function TableFormFilterCourse(props) {
       taiKhoan: taiKhoan,
     };
 
+    console.log(info);
     usersServices
       .cancelRegisterCourse(info)
       .then((res) => {
@@ -107,8 +108,7 @@ export default function TableFormFilterCourse(props) {
                   color: "#e81b00",
                 }}
                 onClick={() => {
-                  console.log(item.taiKhoan);
-                  huyGhiDanh(courseId, item.taiKhoan);
+                  huyGhiDanh(courseId.maKhoaHoc, item.taiKhoan);
                 }}
               >
                 <i className="fa fa-times"></i>
