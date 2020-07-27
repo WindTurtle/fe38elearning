@@ -83,9 +83,14 @@ export default function AdminUserManagement(props) {
           icon: "success",
           button: "OK",
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        usersServices
+          .getListUser()
+          .then((res) => {
+            setUser(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
       })
       .catch((err) => {
         swal({
@@ -96,11 +101,7 @@ export default function AdminUserManagement(props) {
         });
       });
   };
-  // const getInfoUser = (user) => {
-  //   const results = user.filter((user) => {
-  //     return user.taiKhoan.toLowerCase().includes(searchTerm.toLowerCase());
-  //   });
-  // };
+  
   const renderUsers = () => {
     return listUser
       ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

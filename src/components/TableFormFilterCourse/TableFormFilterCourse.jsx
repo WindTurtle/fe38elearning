@@ -43,6 +43,7 @@ export default function TableFormFilterCourse(props) {
   };
 
   let [userInCourse, setUserInCourse] = useState([]);
+
   useEffect(() => {
     coursesServices
       .getUserInCourse(courseId)
@@ -53,24 +54,25 @@ export default function TableFormFilterCourse(props) {
         console.log(err.response.data);
       });
   }, [courseId]);
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [listUser, setListUser] = useState([]);
+  let [listUser, setListUser] = useState([]);
   const handleChangeSearch = (event) => {
     setSearchTerm(event.target.value);
   };
+
   useEffect(() => {
     const results = userInCourse.filter((user) => {
       return user.taiKhoan.toLowerCase().includes(searchTerm.toLowerCase());
     });
     setListUser(results);
   }, [searchTerm, userInCourse]);
+
   const huyGhiDanh = (maKhoaHoc, taiKhoan) => {
     let info = {
       maKhoaHoc: maKhoaHoc,
       taiKhoan: taiKhoan,
     };
-
-    console.log(info);
     usersServices
       .cancelRegisterCourse(info)
       .then((res) => {
@@ -79,13 +81,18 @@ export default function TableFormFilterCourse(props) {
           icon: "success",
           button: "OK",
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        coursesServices
+          .getUserInCourse(courseId)
+          .then((res) => {
+            setUserInCourse(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
       })
       .catch((err) => {
         swal({
-          title: err.response.data,
+          title: "Fail",
           icon: "error",
           button: "OK",
         });

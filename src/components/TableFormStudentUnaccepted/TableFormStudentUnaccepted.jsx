@@ -42,6 +42,7 @@ export default function TableFormStudentUnaccepted(props) {
     setPage(0);
   };
   let [userInCourseUnaccepted, setUserInCourseUnaccepted] = useState([]);
+
   useEffect(() => {
     coursesServices
       .getUserInCourseUnaccepted(courseId)
@@ -52,7 +53,6 @@ export default function TableFormStudentUnaccepted(props) {
         console.log(err.response.data);
       });
   }, [courseId]);
-
   const [searchTerm, setSearchTerm] = useState("");
   let [listUserUnaccepted, setListUserUnaccepted] = useState([]);
   const handleChangeSearch = (event) => {
@@ -80,6 +80,14 @@ export default function TableFormStudentUnaccepted(props) {
           icon: "success",
           button: "OK",
         });
+        coursesServices
+          .getUserInCourseUnaccepted(courseId)
+          .then((res) => {
+            setUserInCourseUnaccepted(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
       })
       .catch((err) => {
         swal({
@@ -102,9 +110,14 @@ export default function TableFormStudentUnaccepted(props) {
           icon: "success",
           button: "OK",
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        coursesServices
+          .getUserInCourseUnaccepted(courseId)
+          .then((res) => {
+            setUserInCourseUnaccepted(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
       })
       .catch((err) => {
         swal({

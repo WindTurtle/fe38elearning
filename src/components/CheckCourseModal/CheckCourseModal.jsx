@@ -103,9 +103,22 @@ export default function CheckCourseModal(props) {
           icon: "success",
           button: "OK",
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        coursesServices
+          .getCoursesAccepted(currentUserName)
+          .then((res) => {
+            setCourseAccepted(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
+        coursesServices
+          .getCourseWaitingAccept(currentUserName)
+          .then((res) => {
+            setCourse(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -126,9 +139,22 @@ export default function CheckCourseModal(props) {
           icon: "success",
           button: "OK",
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        coursesServices
+          .getCoursesAccepted(currentUserName)
+          .then((res) => {
+            setCourseAccepted(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
+        coursesServices
+          .getCourseWaitingAccept(currentUserName)
+          .then((res) => {
+            setCourse(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
       })
       .catch((err) => {
         console.log(err.response.data);

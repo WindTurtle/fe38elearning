@@ -61,9 +61,14 @@ export default function MyCoursesRegistered() {
               icon: "success",
               button: "OK",
             });
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
+            usersServices
+              .getInfoUser(info)
+              .then((res) => {
+                setInfoUser(res.data);
+              })
+              .catch((err) => {
+                console.log(err.response.data);
+              });
           })
           .catch((err) => {
             console.log(err.response.data);
