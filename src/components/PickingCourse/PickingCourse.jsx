@@ -58,6 +58,28 @@ export default function PickingCourse() {
       }
     });
   };
+  const renderButton = () => {
+    if (!getCourseId || getCourseId === "#") {
+      return (
+        <button
+          className="getCourse-button p-2"
+          style={{ borderRadius: "5px", color: "#333" }}
+          disabled
+        >
+          Please Choose Course
+        </button>
+      );
+    } else {
+      return (
+        <NavLink
+          className="getCourse-link"
+          to={`/detail-course/${getCourseId}`}
+        >
+          <button className="getCourse-button">Go To Course</button>
+        </NavLink>
+      );
+    }
+  };
   return (
     <div className="picking-course-content">
       <h3 className="picking-course-title">Picking Course</h3>
@@ -84,14 +106,7 @@ export default function PickingCourse() {
             {renderCourse()}
           </select>
         </div>
-        <div className="form-group-item">
-          <NavLink
-            className="getCourse-link"
-            to={`/detail-course/${getCourseId}`}
-          >
-            <button className="getCourse-button">Go To Course</button>
-          </NavLink>
-        </div>
+        <div className="form-group-item">{renderButton()}</div>
       </form>
     </div>
   );

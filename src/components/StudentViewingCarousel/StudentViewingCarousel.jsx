@@ -6,8 +6,10 @@ import { NavLink } from "react-router-dom";
 import "./StudentViewingCarousel.scss";
 import { coursesServices } from "../../services/CoursesServices";
 import ScrollAnimation from "react-animate-on-scroll";
+import Loading from "../Loading/Loading";
 export default function StudentViewingCarousel() {
   let [course, setCourse] = useState([]);
+  let [loading, setLoading] = useState(true);
   let settings = {
     nav: true,
     infinite: true,
@@ -50,6 +52,7 @@ export default function StudentViewingCarousel() {
       .getCourse()
       .then((res) => {
         setCourse(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err.response);
@@ -100,16 +103,20 @@ export default function StudentViewingCarousel() {
       );
     });
   };
-  return (
-    <section className="studentViewing">
-      <div className="studentViewing__container">
-        <h4 className="studentViewing__title">Students are viewing</h4>
-        <ScrollAnimation animateIn="fadeIn">
-          <div className="studentViewing__carousel">
-            <Slider {...settings}>{renderCourse()}</Slider>
-          </div>
-        </ScrollAnimation>
-      </div>
-    </section>
-  );
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <section className="studentViewing">
+        <div className="studentViewing__container">
+          <h4 className="studentViewing__title">Students are viewing</h4>
+          <ScrollAnimation animateIn="fadeIn">
+            <div className="studentViewing__carousel">
+              <Slider {...settings}>{renderCourse()}</Slider>
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+    );
+  }
 }

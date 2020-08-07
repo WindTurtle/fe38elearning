@@ -14,7 +14,7 @@ export default function Login(props) {
   }
   const dispatch = useDispatch();
 
-  let [status, setStatus] = useState({ currentView: "signUp" });
+  let [status, setStatus] = useState({ currentView: "logIn", currentTitle: "Login" });
   let [state, setState] = useState({
     values: {
       taiKhoan: "",
@@ -129,7 +129,7 @@ export default function Login(props) {
           icon: "success",
           button: "OK",
         });
-        setStatus({ currentView: "logIn" });
+        setStatus({ currentView: "logIn", currentTitle: "Welcome Back" });
       })
       .catch((err) => {
         swal({
@@ -139,9 +139,10 @@ export default function Login(props) {
         });
       });
   };
-  let changeView = (view) => {
+  let changeView = (view, title) => {
     setStatus({
       currentView: view,
+      currentTitle: title,
     });
   };
   const currentView = () => {
@@ -151,7 +152,7 @@ export default function Login(props) {
           <form className="formUser form-signup" onSubmit={handleSignUp}>
             <h2 className="form-title">
               <ScrollAnimation animateIn="bounce" duration="1">
-                Sign Up
+                {status.currentTitle}
               </ScrollAnimation>
             </h2>
             <ScrollAnimation animateIn="zoomIn" duration="1">
@@ -233,7 +234,7 @@ export default function Login(props) {
               </fieldset>
             </ScrollAnimation>
             <button>Submit</button>
-            <button type="button" onClick={() => changeView("logIn")}>
+            <button type="button" onClick={() => changeView("logIn", "Login")}>
               Have an Account?
             </button>
           </form>
@@ -243,7 +244,7 @@ export default function Login(props) {
           <form className="formUser form-login" onSubmit={handleLogIn}>
             <h2 className="form-title">
               <ScrollAnimation animateIn="bounce" duration="1">
-                Welcome Back!
+                {status.currentTitle}
               </ScrollAnimation>
             </h2>
             <fieldset>
@@ -276,7 +277,7 @@ export default function Login(props) {
               </ScrollAnimation>
             </fieldset>
             <button>Login</button>
-            <button type="button" onClick={() => changeView("signUp")}>
+            <button type="button" onClick={() => changeView("signUp", "Sign Up")}>
               Create an Account
             </button>
           </form>
