@@ -158,7 +158,7 @@ export default function Login(props) {
               <fieldset>
                 <legend>Create Account</legend>
                 <div className="row">
-                  <div className="col-6">
+                  <div className="col-md-6 col-sm-12">
                     <ul className="control-form-list">
                       <li className="control-form-item">
                         <label for="username">Username:</label>
@@ -201,7 +201,7 @@ export default function Login(props) {
                       </li>
                     </ul>
                   </div>
-                  <div className="col-6">
+                  <div className="col-md-6 col-sm-12">
                     <ul className="control-form-list">
                       <li className="control-form-item">
                         <label for="name">Name:</label>
